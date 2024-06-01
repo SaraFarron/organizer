@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "aa6c51d0b5f7f99ebd71a834e612e878932136b9cb102bc2f059fe187e2b0968"
+            "sha256": "5f479b54ca61aaaf0d51909588b5faba661a0aede2b828bc03de5f3e216ef9c4"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -80,6 +80,14 @@
             "index": "pypi",
             "version": "==0.0.4"
         },
+        "fastui": {
+            "hashes": [
+                "sha256:9ad5749aa0e0b0aa59a4f8109a632532f56dce2b46c0239df661c3a6cbec9084",
+                "sha256:f5720ed88a6e135e91876d424a2e7a916e208d630d85d87db754881fcacd5f0e"
+            ],
+            "index": "pypi",
+            "version": "==0.6.0"
+        },
         "greenlet": {
             "hashes": [
                 "sha256:01bc7ea167cf943b4c802068e178bbf70ae2e8c080467070d01bfa02f337ee67",
@@ -141,7 +149,7 @@
                 "sha256:fd096eb7ffef17c456cfa587523c5f92321ae02427ff955bebe9e3c63bc9f0da",
                 "sha256:fe754d231288e1e64323cfad462fcee8f0288654c10bdf4f603a39ed923bef33"
             ],
-            "markers": "platform_machine == 'aarch64' or (platform_machine == 'ppc64le' or (platform_machine == 'x86_64' or (platform_machine == 'amd64' or (platform_machine == 'AMD64' or (platform_machine == 'win32' or platform_machine == 'WIN32')))))",
+            "index": "pypi",
             "version": "==3.0.3"
         },
         "h11": {

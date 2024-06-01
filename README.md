@@ -6,3 +6,9 @@ Tool to organize personal finances
 * Categorize operations
 * Update existing data
 * Display plots in line and derivative in bar
+
+
+## charts app
+everything about displaying plots
+
+
