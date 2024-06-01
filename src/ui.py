@@ -10,12 +10,27 @@ PROFILE_BUTTON = c.Button(text="Profile", on_click=GoToEvent(url="/profile"))
 
 def home_page() -> list[AnyComponent]:
     """Home page of the app."""
-    return [...]
+    return []
 
 
 def get_navbar() -> c.Navbar:
     """Get navbar."""
-    return c.Navbar(...)
+    return c.Navbar(
+        start_links=[
+            c.Link(
+                components=[c.Text(text="Income")],
+                on_click=GoToEvent(url="/charts/income"),
+            ),
+            c.Link(
+                components=[c.Text(text="Expences")],
+                on_click=GoToEvent(url="/charts/expences"),
+            ),
+            c.Link(
+                components=[c.Text(text="Profits")],
+                on_click=GoToEvent(url="/charts/profits"),
+            ),
+        ],
+    )
 
 
 def page_wrapper(components: list[AnyComponent], title: str | None = None) -> list[AnyComponent]:
@@ -30,5 +45,13 @@ def page_wrapper(components: list[AnyComponent], title: str | None = None) -> li
         c.Page(
             components=components,
         ),
-        c.Footer(...),
+        c.Footer(
+            extra_text="Made with ❤️ by SaraFarron",
+            links=[
+                c.Link(
+                    components=[c.Text(text="GitHub")],
+                    on_click=GoToEvent(url="https://github.com/SaraFarron/organizer"),
+                ),
+            ],
+        ),
     ]
