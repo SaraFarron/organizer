@@ -18,6 +18,10 @@ def get_navbar() -> c.Navbar:
     return c.Navbar(
         start_links=[
             c.Link(
+                components=[c.Text(text="Home")],
+                on_click=GoToEvent(url="/"),
+            ),
+            c.Link(
                 components=[c.Text(text="Income")],
                 on_click=GoToEvent(url="/charts/income"),
             ),
