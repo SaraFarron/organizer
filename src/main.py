@@ -7,4 +7,4 @@ from src.models import Base
 Base.metadata.create_all(bind=engine)
 app = FastAPI()
 
-app.include_router(charts_router, prefix="/auth", tags=["Auth"])
+app.include_router(charts_router, prefix="/charts", tags=["Charts"])
