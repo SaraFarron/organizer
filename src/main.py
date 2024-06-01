@@ -13,6 +13,12 @@ app = FastAPI()
 app.include_router(charts_router, prefix="/api/charts", tags=["Charts"])
 
 
+@app.get("/healthcheck")
+async def healthcheck():
+    """Health check."""
+    return {"success": True}
+
+
 @app.get("/api/", response_model=FastUI, response_model_exclude_none=True)
 async def main_page():
     """Main page of the app."""

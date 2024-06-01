@@ -1,25 +1,25 @@
 from fastapi import APIRouter
-from fastapi.responses import HTMLResponse
-from fastui import FastUI, prebuilt_html
+from fastui import FastUI
+from fastui import components as c
 
-from src.ui import home_page, page_wrapper
+from src.ui import page_wrapper
 
 router = APIRouter()
 
 
-@router.get("/healthcheck")
-async def healthcheck():
-    """Health check."""
-    return {"success": True}
+@router.get("/income", response_model=FastUI, response_model_exclude_none=True)
+async def income():
+    """Income chart."""
+    return page_wrapper([c.Iframe(src="https://pydantic.dev", width="100%", height=400)])
 
 
-@router.get("/api/", response_model=FastUI, response_model_exclude_none=True)
-async def main_page():
-    """Main page of the app."""
-    return page_wrapper(home_page(), title="Title")
+@router.get("/expences", response_model=FastUI, response_model_exclude_none=True)
+async def expences():
+    """Expences chart."""
+    return page_wrapper([c.Iframe(src="https://pydantic.dev", width="100%", height=400)])
 
 
-@router.get("/{path:path}")
-async def html_landing():
-    """Simple HTML page which serves the React app, comes last as it matches all paths."""
-    return HTMLResponse(prebuilt_html(title="Title"))
+@router.get("/profits", response_model=FastUI, response_model_exclude_none=True)
+async def profits():
+    """Profits chart."""
+    return page_wrapper([c.Iframe(src="https://pydantic.dev", width="100%", height=400)])
