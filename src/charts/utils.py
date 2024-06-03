@@ -23,27 +23,26 @@ def adapt_columns(row: dict):
     }
 
 
-def get_dataframe(data: dict, key: str):
+def get_dataframe(data: dict, key: str, dt_fmt: str = "%d.%m.%Y %H:%M:%S"):
     """Get dataframe from tmp.json."""
     rows = [adapt_columns(item) for item in data if item["model"] == "charts." + key]
-    return pd.DataFrame(rows)
+    dataframe = pd.DataFrame(rows)
+    try:
+        dataframe[Y_COL] = dataframe[Y_COL].str.replace(",", ".").astype(float).abs()
+    except AttributeError:
+        dataframe[Y_COL] = dataframe[Y_COL].astype(float).abs()
+    dataframe[X_COL] = pd.to_datetime(dataframe[X_COL], format=dt_fmt)
+    return dataframe
 
 
 def get_plot_data(
     data: pd.DataFrame,
-    dt_fmt: str = "%d.%m.%Y %H:%M:%S",
     x_col: str = "Date",
     y_col: str = "Total",
     after: str = "2021-01-01",
 ):
     """Retreives data from table and adapts for plots."""
     xy_data = data[[x_col, y_col]]
-
-    try:
-        xy_data[y_col] = xy_data[y_col].str.replace(",", ".").astype(float).abs()
-    except AttributeError:
-        xy_data[y_col] = xy_data[y_col].astype(float).abs()
-    xy_data[x_col] = pd.to_datetime(xy_data[x_col], format=dt_fmt)
 
     sliced_data = xy_data.loc[xy_data[x_col] > after]
 
@@ -55,17 +54,17 @@ def charts_data(kind: Literal["income", "expences", "profits"], x_column: str, y
     """Get charts data."""
     data = load_tmp_data()
     if kind == "profits":
-        table = get_dataframe(data, "income")
-        expences = get_dataframe(data, "expences")
+        table = get_dataframe(data, "income", dt_fmt="%Y-%m-%d")
+        expences = get_dataframe(data, "expences", dt_fmt="%Y-%m-%d")
         table[Y_COL] = table[Y_COL] - expences[Y_COL]
     else:
-        table = get_dataframe(data, kind)
+        table = get_dataframe(data, kind, dt_fmt="%Y-%m-%d")
     if x_column not in table.columns or y_column not in table.columns:
         raise HTTPException(
             status_code=404,
             detail=f"Column not found: {x_column} or {y_column} not in {table.columns}",
         )
-    plot_data = get_plot_data(table, x_col=x_column, y_col=y_column, dt_fmt="%Y-%m-%d")
+    plot_data = get_plot_data(table, x_col=x_column, y_col=y_column)
     layout = go.Layout(yaxis={"tickformat": "~s"})
     fig = make_subplots()
     fig.add_scatter(
