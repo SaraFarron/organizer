@@ -54,7 +54,12 @@ def get_plot_data(
 def charts_data(kind: Literal["income", "expences", "profits"], x_column: str, y_column: str):
     """Get charts data."""
     data = load_tmp_data()
-    table = get_dataframe(data, kind)
+    if kind == "profits":
+        table = get_dataframe(data, "income")
+        expences = get_dataframe(data, "expences")
+        table[Y_COL] = table[Y_COL] - expences[Y_COL]
+    else:
+        table = get_dataframe(data, kind)
     if x_column not in table.columns or y_column not in table.columns:
         raise HTTPException(
             status_code=404,
