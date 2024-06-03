@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Request
 from fastui import FastUI
 from fastui import components as c
 
@@ -9,9 +9,9 @@ router = APIRouter()
 
 
 @router.get("/plot/income")
-async def plot_income():
+async def plot_income(request: Request):
     """Plot income chart."""
-    return income_chart()
+    return income_chart(request)
 
 
 @router.get("/plot/expences")

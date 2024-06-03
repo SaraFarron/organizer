@@ -1,12 +1,18 @@
+from fastapi import Request
 from plotly.offline import plot
 
 from src.charts.config import X_COL, Y_COL
 from src.charts.utils import charts_data
+from src.config import Templates
 
 
-def income_chart():
+def income_chart(request: Request):
     """Income chart."""
-    return plot(charts_data("income", X_COL, Y_COL), output_type="div")
+    return Templates.TemplateResponse(
+        request=request,
+        name="index.html",
+        context={"plots": plot(charts_data("income", X_COL, Y_COL), output_type="div")},
+    )
 
 
 def expences_chart():
