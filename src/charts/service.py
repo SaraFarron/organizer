@@ -15,11 +15,19 @@ def income_chart(request: Request):
     )
 
 
-def expences_chart():
+def expences_chart(request: Request):
     """Expences chart."""
-    return plot(charts_data("expences", X_COL, Y_COL), output_type="div")
+    return Templates.TemplateResponse(
+        request=request,
+        name="index.html",
+        context={"plots": plot(charts_data("expences", X_COL, Y_COL), output_type="div")},
+    )
 
 
-def profits_chart():
+def profits_chart(request: Request):
     """Profits chart."""
-    return plot(charts_data("profits", X_COL, Y_COL), output_type="div")
+    return Templates.TemplateResponse(
+        request=request,
+        name="index.html",
+        context={"plots": plot(charts_data("profits", X_COL, Y_COL), output_type="div")},
+    )

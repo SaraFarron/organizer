@@ -15,15 +15,15 @@ async def plot_income(request: Request):
 
 
 @router.get("/plot/expences")
-async def plot_expences():
+async def plot_expences(request: Request):
     """Plot expences chart."""
-    return expences_chart()
+    return expences_chart(request)
 
 
 @router.get("/plot/profits")
-async def plot_profits():
+async def plot_profits(request: Request):
     """Plot profits chart."""
-    return profits_chart()
+    return profits_chart(request)
 
 
 @router.get("/income", response_model=FastUI, response_model_exclude_none=True)
