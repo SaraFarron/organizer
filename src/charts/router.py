@@ -29,16 +29,16 @@ async def plot_profits():
 @router.get("/income", response_model=FastUI, response_model_exclude_none=True)
 async def income():
     """Income chart."""
-    return page_wrapper([c.Iframe(src="https://pydantic.dev", width="100%", height=400)])
+    return page_wrapper([c.Iframe(src="http://localhost:8000/api/charts/plot/income", width="100%", height=400)])
 
 
 @router.get("/expences", response_model=FastUI, response_model_exclude_none=True)
 async def expences():
     """Expences chart."""
-    return page_wrapper([c.Iframe(src="https://pydantic.dev", width="100%", height=400)])
+    return page_wrapper([c.Iframe(src="http://localhost:8000/api/charts/plot/expences", width="100%", height=400)])
 
 
 @router.get("/profits", response_model=FastUI, response_model_exclude_none=True)
 async def profits():
     """Profits chart."""
-    return page_wrapper([c.Iframe(src="https://pydantic.dev", width="100%", height=400)])
+    return page_wrapper([c.Iframe(src="http://localhost:8000/api/charts/plot/profits", width="100%", height=400)])
