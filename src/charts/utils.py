@@ -2,8 +2,10 @@ import json
 from typing import Literal
 
 import pandas as pd
+import plotly.graph_objs as go
 from fastapi import HTTPException
 from plotly.subplots import make_subplots
+
 from src.charts.config import X_COL, Y_COL
 
 
@@ -55,9 +57,11 @@ def charts_data(kind: Literal["income", "expences", "profits"], x_column: str, y
     table = get_dataframe(data, kind)
     if x_column not in table.columns or y_column not in table.columns:
         raise HTTPException(
-            status_code=404, detail=f"Column not found: {x_column} or {y_column} not in {table.columns}",
+            status_code=404,
+            detail=f"Column not found: {x_column} or {y_column} not in {table.columns}",
         )
     plot_data = get_plot_data(table, x_col=x_column, y_col=y_column, dt_fmt="%Y-%m-%d")
+    layout = go.Layout(yaxis={"tickformat": "~s"})
     fig = make_subplots()
     fig.add_scatter(
         x=plot_data[x_column],
@@ -65,4 +69,5 @@ def charts_data(kind: Literal["income", "expences", "profits"], x_column: str, y
         line_shape="spline",
         name=kind,
     )
+    fig.update_layout(layout)
     return fig
