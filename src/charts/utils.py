@@ -75,3 +75,7 @@ def charts_data(kind: Literal["income", "expences", "profits"], x_column: str, y
     )
     fig.update_layout(layout)
     return fig
+
+
+def common_chart(name: str, x_column: str, y_column: str, kind: Literal["bar", "line"]):
+    """Get common chart."""

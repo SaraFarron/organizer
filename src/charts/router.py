@@ -3,7 +3,7 @@ from fastui import FastUI
 from fastui import components as c
 
 from src.charts.config import PLOTS_HEIGHT
-from src.charts.service import expences_chart, income_chart, profits_chart
+from src.charts.service import chart, expences_chart, income_chart, profits_chart
 from src.ui import page_wrapper
 
 router = APIRouter()
@@ -25,6 +25,12 @@ async def plot_expences(request: Request):
 async def plot_profits(request: Request):
     """Plot profits chart."""
     return profits_chart(request)
+
+
+@router.get("/plot/{name}")
+async def plot(request: Request, name: str):
+    """Plot chart."""
+    return chart(request, name)
 
 
 @router.get("/income", response_model=FastUI, response_model_exclude_none=True)

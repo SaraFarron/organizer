@@ -31,3 +31,12 @@ def profits_chart(request: Request):
         name="index.html",
         context={"plots": plot(charts_data("profits", X_COL, Y_COL), output_type="div")},
     )
+
+
+def chart(request: Request, name: str):
+    """Get chart data."""
+    return Templates.TemplateResponse(
+        request=request,
+        name="index.html",
+        context={"plots": plot(charts_data(name, X_COL, Y_COL), output_type="div")},
+    )
